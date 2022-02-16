@@ -1,7 +1,21 @@
-﻿<h3>ProductList</h3>
-<ul class="list-unstyled">
+﻿<h3 class="m-4">ProductList</h3>
 
-</ul>
+<MudGrid Spacing="1" Justify="Justify.Center">
+    @foreach (var product in @ProductListDetails)
+    {
+        <MudItem>
+            <MudCard>
+                <MudCardMedia Image="@product.ProductUrl" Height="200" />
+                <MudCardContent>
+                    <MudText> Product Name: @product.ProductName</MudText>
+                    <MudText Typo="Typo.body2">Product Description: @product.ProductDescription</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    }
+
+</MudGrid>
+
 
 @code {
     private static List<Product> ProductListDetails = new List<Product>
