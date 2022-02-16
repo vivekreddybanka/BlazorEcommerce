@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "82279619-1ab6-4619-93e1-b901711f3769": {
+      "ProjectGuid": "82279619-1ab6-4619-93e1-b901711f3769",
+      "DisplayName": "blazorPWAEcommerce.Client",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
