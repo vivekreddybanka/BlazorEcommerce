@@ -1,4 +1,6 @@
-﻿<h3 class="m-4">ProductList</h3>
+﻿@inject HttpClient Http
+
+<h3 class="m-4">ProductList</h3>
 
 <MudGrid Spacing="1" Justify="Justify.FlexStart">
     @foreach (var product in @ProductListDetails)
@@ -6,13 +8,13 @@
         <MudItem xs=12 sm=6 md=4 lg=3>
             <MudCard Class="ProductCard">
                 <div class="d-flex justify-center">
-                
-                    <MudImage ObjectPosition="ObjectPosition.Center"  Src="@product.ProductUrl" Width="250" Height="250"  Alt="Swedish Farm House" Elevation="25" Class="rounded-lg"/>
+
+                    <MudImage ObjectPosition="ObjectPosition.Center" Src="@product.ProductUrl" Width="250" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
                 </div>
                 <MudCardContent>
                     <MudText> <span class="fw-bold">Product Name:</span> @product.ProductName</MudText>
-                    <MudText Typo="Typo.body2"> <span class ="fw-bold">Product Description:</span> @TruncateString(@product.ProductDescription)</MudText>
-                    <MudText class="price">@product.ProductPrice</MudText>
+                    <MudText Typo="Typo.body2"> <span class="fw-bold">Product Description:</span> @TruncateString(@product.ProductDescription)</MudText>
+                    <MudText class="price"> <span class="fw-bold">Price </span>- @product.ProductPrice</MudText>
                 </MudCardContent>
             </MudCard>
         </MudItem>
@@ -21,40 +23,35 @@
 
 
 @code {
-    private static List<Product> ProductListDetails = new List<Product>
-    {
-        new Product
-        {
-            ProductID = 1,
-            ProductName = "The Hitchhiker's Guide to the Galaxy",
-            ProductDescription = "The Hitchhiker's Guide to the Galaxy[note 1] (sometimes referred to as HG2G,[1] HHGTTG,[2] H2G2,[3] or tHGttG) is a comedy science fiction franchise created by Douglas Adams. Originally a 1978 radio comedy broadcast on BBC Radio 4, it was later adapted to other formats, including stage shows, novels, comic books, a 1981 TV series, a 1984 text-based computer game, and 2005 feature film.",
-            ProductUrl = "/images/H2G2_UK_front_cover.jpg",
-            ProductPrice = 9.99m
-        },
-        new Product
-        {
-            ProductID = 2,
-            ProductName= "Ready Player One",
-            ProductDescription = "Ready Player One is a 2018 American science fiction adventure film based on Ernest Cline's novel of the same name. Directed by Steven Spielberg, from a screenplay by Zak Penn and Cline, it stars Tye Sheridan, Olivia Cooke, Ben Mendelsohn, Lena Waithe, T.J. Miller, Simon Pegg, and Mark Rylance. Set in 2045, much of humanity uses the OASIS, a virtual reality simulation, to escape the real world. The orphaned Wade Watts finds clues to a contest that promises the ownership of the OASIS to the winner, and he and his allies try to complete it before an evil corporation can do so.",
-            ProductUrl = "/images/Ready_Player_One_(film).png",
-            ProductPrice = 19.99m
-        },
-        new Product
-        {
-            ProductID = 3,
-            ProductDescription = "Nineteen Eighty-Four (also stylised as 1984) is a dystopian social science fiction novel and cautionary tale written by English writer George Orwell. It was published on 8 June 1949 by Secker & Warburg as Orwell's ninth and final book completed in his lifetime. Thematically, it centres on the consequences of totalitarianism, mass surveillance and repressive regimentation of people and behaviours within society.[2][3] Orwell, a democratic socialist, modelled the totalitarian government in the novel after Stalinist Russia and Nazi Germany.[2][3][4] More broadly, the novel examines the role of truth and facts within politics and the ways in which they are manipulated.",
-            ProductName = "Nineteen Eighty-Four",
-            ProductUrl = "/images/1984first.jpg",
-            ProductPrice = 29.99m
-        }
-    };
+    private static List<Product> ProductListDetails = new List<Product>();
 
-    public string TruncateString (string desc) {
-        return desc.Substring(0, 150);
+    protected override async Task OnInitializedAsync() {
+        var result = await Http.GetFromJsonAsync<List<Product>>("api/Product");
+        if (result != null)
+        {
+            ProductListDetails = result;
+        }
+    }
+
+    public string TruncateString(string desc)
+    {
+        if (desc.Length > 100)
+        {
+            return desc.Substring(0, 100);
+
+        }
+        else
+        {
+            return desc;
+        }
     }
 }
 <style type="text/css">
     .ProductCard {
-        height: 450px;
+        height: 500px;
+    }
+
+    .price {
+        color: green
     }
 </style>
