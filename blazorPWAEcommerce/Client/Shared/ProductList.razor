@@ -1,14 +1,18 @@
 ﻿<h3 class="m-4">ProductList</h3>
 
-<MudGrid Spacing="1" Justify="Justify.Center">
+<MudGrid Spacing="1" Justify="Justify.FlexStart">
     @foreach (var product in @ProductListDetails)
     {
-        <MudItem xs=3>
+        <MudItem xs=12 sm=6 md=4 lg=3>
             <MudCard Class="ProductCard">
-                <MudImage Src="@product.ProductUrl" Width="350" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg ma-4"/>
+                <div class="d-flex justify-center">
+                
+                    <MudImage ObjectPosition="ObjectPosition.Center"  Src="@product.ProductUrl" Width="250" Height="250"  Alt="Swedish Farm House" Elevation="25" Class="rounded-lg"/>
+                </div>
                 <MudCardContent>
-                    <MudText> Product Name: @product.ProductName</MudText>
-                    <MudText Typo="Typo.body2">Product Description: @product.ProductDescription</MudText>
+                    <MudText> <span class="fw-bold">Product Name:</span> @product.ProductName</MudText>
+                    <MudText Typo="Typo.body2"> <span class ="fw-bold">Product Description:</span> @TruncateString(@product.ProductDescription)</MudText>
+                    <MudText class="price">@product.ProductPrice</MudText>
                 </MudCardContent>
             </MudCard>
         </MudItem>
@@ -44,4 +48,13 @@
             ProductPrice = 29.99m
         }
     };
+
+    public string TruncateString (string desc) {
+        return desc.Substring(0, 150);
+    }
 }
+<style type="text/css">
+    .ProductCard {
+        height: 450px;
+    }
+</style>
