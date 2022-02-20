@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazorPWAEcommerce.Server", "Server\blazorPWAEcommerce.Server.csproj", "{B27E434E-8005-46A1-B1BC-941556D732FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "blazorPWAEcommerce.Server", "Server\blazorPWAEcommerce.Server.csproj", "{B27E434E-8005-46A1-B1BC-941556D732FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazorPWAEcommerce.Client", "Client\blazorPWAEcommerce.Client.csproj", "{82279619-1AB6-4619-93E1-B901711F3769}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "blazorPWAEcommerce.Client", "Client\blazorPWAEcommerce.Client.csproj", "{82279619-1AB6-4619-93E1-B901711F3769}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazorPWAEcommerce.Shared", "Shared\blazorPWAEcommerce.Shared.csproj", "{006B3DE1-A40A-4932-B521-6CD7A85486DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "blazorPWAEcommerce.Shared", "Shared\blazorPWAEcommerce.Shared.csproj", "{006B3DE1-A40A-4932-B521-6CD7A85486DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

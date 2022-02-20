@@ -1,36 +1,41 @@
-﻿@inject HttpClient Http
+﻿@inject IProductService ProductService;
 
 <h3 class="m-4">ProductList</h3>
 
-<MudGrid Spacing="1" Justify="Justify.FlexStart">
-    @foreach (var product in @ProductListDetails)
-    {
-        <MudItem xs=12 sm=6 md=4 lg=3>
-            <MudCard Class="ProductCard">
-                <div class="d-flex justify-center">
+@if (ProductService.products == null || ProductService.products.Count() == 0)
+{
+   <LoadingComponent></LoadingComponent>
+}
+else
+{
+    <MudGrid Spacing="1" Justify="Justify.FlexStart">
+        @foreach (var product in @ProductService.products)
+        {
+            <MudItem xs=12 sm=6 md=4 lg=3>
+                <MudCard Class="ProductCard">
+                    <div class="d-flex justify-center">
 
-                    <MudImage ObjectPosition="ObjectPosition.Center" Src="@product.ProductUrl" Width="250" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
-                </div>
-                <MudCardContent>
-                    <MudText> <span class="fw-bold">Product Name:</span> @product.ProductName</MudText>
-                    <MudText Typo="Typo.body2"> <span class="fw-bold">Product Description:</span> @TruncateString(@product.ProductDescription)</MudText>
-                    <MudText class="price"> <span class="fw-bold">Price </span>- @product.ProductPrice</MudText>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-    }
-</MudGrid>
+                        <MudImage ObjectPosition="ObjectPosition.Center" Src="@product.ProductUrl" Width="250" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg pt-2" />
+                    </div>
+                    <MudCardContent>
+                        <MudText> <span class="fw-bold">Product Name:</span> @product.ProductName</MudText>
+                        <MudText Typo="Typo.body2"> <span class="fw-bold">Product Description:</span> @TruncateString(@product.ProductDescription)</MudText>
+                        <MudText class="price"> <span class="fw-bold">Price </span>- @product.ProductPrice</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+}
+
 
 
 @code {
     private static List<Product> ProductListDetails = new List<Product>();
 
-    protected override async Task OnInitializedAsync() {
-        var result = await Http.GetFromJsonAsync<List<Product>>("api/Product");
-        if (result != null)
-        {
-            ProductListDetails = result;
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        await ProductService.GetProducts();
     }
 
     public string TruncateString(string desc)
@@ -54,4 +59,5 @@
     .price {
         color: green
     }
+   
 </style>

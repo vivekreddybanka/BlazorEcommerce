@@ -1,8 +1,8 @@
 global using blazorPWAEcommerce.Shared;
 global using Microsoft.EntityFrameworkCore;
 global using blazorPWAEcommerce.Server.Data;
+global using blazorPWAEcommerce.Server.Services.ProductService;
 using Microsoft.AspNetCore.ResponseCompression;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
