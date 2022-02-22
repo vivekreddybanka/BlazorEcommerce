@@ -1,7 +1,7 @@
 ﻿@page "/product/{Id:int}"
 @inject IProductService ProductService
 
-<h3>ProductDetails</h3>
+<h3 class="m-4">ProductDetails</h3>
 
 @if (@product == null)
 {
@@ -15,12 +15,10 @@ else
         </MudItem>
         <MudItem xs="12" md="4">
             <MudPaper Class="pa-4 mt-6 mt-lg-16" Elevation="0">
-                <MudText Typo="Typo.h6">Options</MudText>
-                <div class="d-flex justify-space-between align-center mt-4">
-                    <MudText>@product.ProductName</MudText>
-                    <MudText>@product.ProductDescription</MudText>
-                    <MudText>@product.ProductPrice</MudText>
-                </div>
+                <MudText Typo="Typo.h6">Product Details</MudText>
+                <MudText>@product.ProductName</MudText>
+                <MudText>@product.ProductDescription</MudText>
+                <MudText>@product.ProductPrice</MudText>
             </MudPaper>
         </MudItem>
     </MudGrid>

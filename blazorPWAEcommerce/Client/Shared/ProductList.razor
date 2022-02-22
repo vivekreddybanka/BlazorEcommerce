@@ -1,4 +1,5 @@
 ﻿@inject IProductService ProductService;
+@inject NavigationManager NavigationManager
 
 <h3 class="m-4">ProductList</h3>
 
@@ -15,7 +16,7 @@ else
                 <MudCard Class="ProductCard">
                     <div class="d-flex justify-center">
 
-                        <MudImage ObjectPosition="ObjectPosition.Center" Src="@product.ProductUrl" Width="250" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg pt-2" />
+                        <MudImage ObjectPosition="ObjectPosition.Center" Src="@product.ProductUrl" Width="250" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg pt-2 ProductClick" @onclick=@( () => ProductNavigate(product.ProductID))   />
                     </div>
                     <MudCardContent>
                         <MudText> <span class="fw-bold">Product Name:</span> @product.ProductName</MudText>
@@ -50,6 +51,11 @@ else
             return desc;
         }
     }
+
+    public void ProductNavigate(int productID)
+    {
+        NavigationManager.NavigateTo("/product/" + productID);
+    }
 }
 <style type="text/css">
     .ProductCard {
@@ -58,6 +64,9 @@ else
 
     .price {
         color: green
+    }
+    .ProductClick {
+        cursor: pointer
     }
    
 </style>
