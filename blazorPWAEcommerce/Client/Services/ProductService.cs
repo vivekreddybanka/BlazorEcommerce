@@ -7,7 +7,7 @@ namespace blazorPWAEcommerce.Client.Services
         private readonly HttpClient _httpClient;
         public ProductService(HttpClient httpClient)
         {
-            _httpClient = httpClient;   
+            _httpClient = httpClient;
         }
         public List<Product> products { get; set; } = new List<Product>();
 
@@ -18,6 +18,12 @@ namespace blazorPWAEcommerce.Client.Services
             {
                 products = result.Data;
             }
+        }
+
+        public async Task<ServiceResponse<Product>> GetProduct(int productID)
+        {
+            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Product>>($"api/Product/{productID}");
+            return result;
         }
     }
 }

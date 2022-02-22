@@ -5,7 +5,7 @@
 
 @if (@product == null)
 {
-    <span> Loading Product ...</span>
+    <span> @Message</span>
 }
 else
 {
@@ -16,9 +16,9 @@ else
         <MudItem xs="12" md="4">
             <MudPaper Class="pa-4 mt-6 mt-lg-16" Elevation="0">
                 <MudText Typo="Typo.h6">Product Details</MudText>
-                <MudText>@product.ProductName</MudText>
-                <MudText>@product.ProductDescription</MudText>
-                <MudText>@product.ProductPrice</MudText>
+                <MudText> <span class="font-bold">Product Name:</span> @product.ProductName</MudText>
+                <MudText> <span class="font-bold">Product Description:</span> @product.ProductDescription</MudText>
+                <MudText> <span class="font-bold">Product Price:</span> <span class="price"> @product.ProductPrice</span> </MudText>
             </MudPaper>
         </MudItem>
     </MudGrid>
@@ -28,11 +28,30 @@ else
 @code {
     private Product product = null;
 
+    private string Message = string.Empty;
+
     [Parameter]
     public int Id { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
-        product = ProductService.products.Find(p => p.ProductID == Id);
+        var result = await ProductService.GetProduct(Id);
+        if (!result.Success)
+        {
+            Message = result.Message;
+        }
+        else
+        {
+            product = result.Data;
+        }
     }
 }
+<style type="text/css">
+    .price {
+        color: green
+    }
+
+    .font-bold {
+        font-weight: bold;
+    }
+</style>
